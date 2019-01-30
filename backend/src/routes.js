@@ -4,7 +4,7 @@ const { UserController, SessionController } = require('./app/controllers')
 
 const { auth } = require('./app/middlewares')
 
-routes.post('/', UserController.store)
+routes.post('/register', UserController.store)
 routes.post('/login', SessionController.store)
 
 routes.use(auth)

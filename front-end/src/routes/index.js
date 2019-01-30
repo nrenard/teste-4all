@@ -1,17 +1,19 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
 
 import Home from '../pages/home';
+import Login from '../pages/login';
+import Register from '../pages/register';
 
 const Routes = () => (
-	<BrowserRouter>
-		<Switch>
-			<Route exact path="/" component={Home} />
-			<PrivateRoute  exact path="/app"  component={() => <h1>aeee</h1>}  />
-		</Switch>
-	</BrowserRouter>
+	<Switch>
+		<PrivateRoute exact path="/" component={Home}  />
+		<Route exact path="/login" component={Login} />
+		<Route exact path="/register" component={Register} />
+		{/* <Route component={() => <h1>aeeeooo</h1>} /> */}
+	</Switch>
 );
 
 export default Routes;
