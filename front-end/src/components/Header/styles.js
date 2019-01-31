@@ -8,15 +8,6 @@ export const Container = styled.header`
   align-items: center;
 `;
 
-export const Content = styled.div`
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 10px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-`;
-
 export const Nav = styled.nav`
   display: flex;
   align-items: center;
@@ -35,6 +26,44 @@ export const Nav = styled.nav`
 
     &:hover, &.active {
       color: #fff;
+    }
+  }
+`;
+
+export const User = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255,255,255,.1);
+  padding: 10px;
+  border-radius: 4px;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+
+  strong {
+    margin-bottom: 2px;
+  }
+
+  div {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0, .8);
+    text-transform: uppercase;
+    opacity: 0;
+    transition: .2s all ease-out;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  &:hover {
+    div {
+      opacity: 1;
     }
   }
 `;

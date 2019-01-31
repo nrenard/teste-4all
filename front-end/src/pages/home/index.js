@@ -1,11 +1,23 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { connect } from 'react-redux';
 
-const home = () => (
-	<div className="home">
-		home
-	</div>
+import { Container, Amount, ButtonsWrapper } from './styles';
+import { Content } from '../../styles/components';
+
+const Home = ({ amout }) => (
+	<Container>
+		<Content>
+			<Amount>
+				Saldo atual da conta: <strong> {amout}</strong>
+				<ButtonsWrapper>
+					<button>Adicionar saldo</button>
+				</ButtonsWrapper>
+			</Amount>
+		</Content>
+	</Container>
 );
 
-export default home;
+const mapStateToProps = ({ user }) => ({ amout: user.amount ? user.amount : 0 });
+
+export default connect(mapStateToProps)(Home);

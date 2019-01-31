@@ -1,6 +1,11 @@
 const { User } = require('../models')
 
 class UserController {
+
+  index (req, res) {
+    res.json(req.user);
+  }
+
   async store (req, res) {
     const { email = "", name = "", password = "" } = req.body;
 
@@ -22,7 +27,7 @@ class UserController {
       return res.json({ error: 'Senha precisa ter no mínimo 6 caracteres' })
     }
 
-    const user = await User.create(req.body)
+    const user = await User.create({ ...req.body, amount: 0 })
 
     return res.json(user)
   }

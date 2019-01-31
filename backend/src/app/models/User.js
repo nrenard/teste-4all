@@ -7,8 +7,9 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
+    amount: DataTypes.INTEGER,
     password: DataTypes.VIRTUAL,
-    password_hash: DataTypes.STRING,
+    password_hash: DataTypes.STRING
   },
   {
     hooks: {
@@ -24,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     return await bcrypt.compare(password, this.password_hash)
   }
   
-  User.prototype.generateToken = function ({ id, name, email }) {
-    return jwt.sign({ id, name, email }, secret, { expiresIn })
+  User.prototype.generateToken = function ({ id, name, email, amount }) {
+    return jwt.sign({ id, name, email, amount }, secret, { expiresIn })
   }
 
   return User

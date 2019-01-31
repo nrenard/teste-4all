@@ -16,7 +16,8 @@ class SessionController {
     return res.json({ 
       user: { 
         name: user.name, 
-        email: user.email 
+        email: user.email,
+        amount: user.amount
       }, 
       token: user.generateToken(user) 
     })

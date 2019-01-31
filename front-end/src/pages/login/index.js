@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as UserActions } from '../../store/ducks/user';
+
 import api from '../../services/api';
 
 import { Container, Content, Form, ButtonsWrapper } from './styles';
@@ -42,16 +46,16 @@ class Login extends Component {
         email: this.state.email,
         password: this.state.password,
       });
-      console.log('data: ', data);
-      if (!data.error) {
 
+      if (!data.error) {
         await localStorage.setItem('token', data.token);
+        this.props.setUser(data.user);
 
         this.setState({ 
           successLogin: true,
           error: null,
         }, () => {
-          this.redirectToDashboard = setTimeout(() => this.props.history.push('/'), 3000);
+          this.redirectToDashboard = setTimeout(() => this.props.history.push('/'), 2000);
         })
       } else {
         this.setState({ error: data.error });
@@ -111,4 +115,8 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => bindActionCreators({
+  setUser: UserActions.setUser,
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(Login);
