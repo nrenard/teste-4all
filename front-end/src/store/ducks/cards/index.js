@@ -4,8 +4,8 @@ export const Types = {
 };
 
 const INITIAL_STATE = {
-  list: [],
-	loading: false,
+  list: null,
+  loading: false,
 };
 
 export const Creators = {
@@ -19,7 +19,7 @@ export default function playlists(state = INITIAL_STATE, { type, payload }) {
 		case Types.GET_CARDS:
 			return { ...state, loading: true }
 		case Types.GET_CARDS_SUCCESS:
-			return { ...state, ...payload.data, loading: false }
+			return { ...state, list: payload.data, loading: false }
 		default:
 			return state
 	}

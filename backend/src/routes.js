@@ -10,10 +10,10 @@ routes.post('/login', SessionController.store)
 routes.use(auth)
 
 routes.get('/account', UserController.index)
-routes.post('/carts', CardController.store)
-routes.get('/carts', CardController.index)
-routes.get('/carts/:id', CardController.show)
-routes.delete('/carts/:id', CardController.destroy)
-routes.put('/carts/:id', CardController.update)
+routes.post('/cards', CardController.store)
+routes.get('/cards', CardController.index)
+routes.get('/cards/:id', CardController.show)
+routes.delete('/cards/:id', CardController.destroy)
+routes.put('/cards/:id', CardController.update)
 
 module.exports = routes

@@ -10,19 +10,24 @@ import { Content, PageTitle } from '../../styles/components';
 class Cards extends Component {
 
   componentDidMount() {
-    this.props.getCards();
+    const { cards } = this.props;
+    if (!cards.list) {
+      this.props.getCards();
+    }
   }
 
   render() {
 
-    console.log('this.props: ', this.props);
+    const { cards } = this.props;
+
+    console.log('cards: ', cards);
 
     return (
       <Container>
         <Content>
           <PageTitle>Cartões</PageTitle>
     
-          <ListCard>
+          <ListCard loading={cards.loading}>
             <HeaderList>
               <div>
                 <ColumnList width={160}>
@@ -42,28 +47,31 @@ class Cards extends Component {
                 <p className="actions">ações</p>
               </div>
             </HeaderList>
-            <ul>
-              <li>
-                <div>
-                  <ColumnList width={160}>
-                    <p>1234 4321 7894 6542</p>
-                  </ColumnList>
-                  <ColumnList width={150}>
-                    <p>Nicolas Y Z Renard</p>
-                  </ColumnList>
-                  <ColumnList width={90}>
-                    <p>02/21</p>
-                  </ColumnList>
-                  <ColumnList width={30}>
-                    <p>123</p>
-                  </ColumnList>
-                </div>
-                <div>
-                  <p className="actions">excluir</p>
-                </div>
-              </li>
-              <li>a</li>
-            </ul>
+            {cards.list && (
+              <ul>
+                {cards.list.map(item => (
+                  <li key={item.id}>
+                    <div>
+                      <ColumnList width={160}>
+                        <p>{item.number}</p>
+                      </ColumnList>
+                      <ColumnList width={150}>
+                        <p>{item.holder}</p>
+                      </ColumnList>
+                      <ColumnList width={90}>
+                        <p>{item.expiration}</p>
+                      </ColumnList>
+                      <ColumnList width={30}>
+                        <p>{item.cvv}</p>
+                      </ColumnList>
+                    </div>
+                    <div>
+                      <p className="actions">excluir</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </ListCard>
         </Content>
       </Container>

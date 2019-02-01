@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   name: "",
   email: "",
   amount: 0,
-	loading: false,
+  loading: false,
 };
 
 export const Creators = {

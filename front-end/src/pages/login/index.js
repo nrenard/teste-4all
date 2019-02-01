@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as UserActions } from '../../store/ducks/user';
 
+import { setToken } from '../../services/auth';
+
 import api from '../../services/api';
 
 import { Container, Content, Form, ButtonsWrapper } from './styles';
@@ -15,8 +17,8 @@ import Input from '../../components/Input';
 
 class Login extends Component {
 
-  state = { 
-    email: '', 
+  state = {
+    email: '',
     password: '',
     error: null,
     successLogin: false,
@@ -42,16 +44,16 @@ class Login extends Component {
     }
 
     try {
-      const { data } = await api.post('/login', { 
+      const { data } = await api.post('/login', {
         email: this.state.email,
         password: this.state.password,
       });
 
       if (!data.error) {
-        await localStorage.setItem('token', data.token);
+        setToken(data.token);
         this.props.setUser(data.user);
 
-        this.setState({ 
+        this.setState({
           successLogin: true,
           error: null,
         }, () => {

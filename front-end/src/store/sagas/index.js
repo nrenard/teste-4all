@@ -1,14 +1,11 @@
-import { all, takeLatest }  from 'redux-saga/effects';
+import { all }  from 'redux-saga/effects';
 
-import { getUser } from './user';
-import { getCards } from './cards';
-
-import { Types as UserActions } from '../ducks/user';
-import { Types as CardsActions } from '../ducks/cards';
+import userSaga from './user';
+import cardsSaga from './cards';
 
 export default function* rootSaga() {
 	yield all([
-		takeLatest(UserActions.GET_USER, getUser),
-		takeLatest(CardsActions.GET_CARDS, getCards),
+		userSaga(),
+		cardsSaga(),
 	]);
 }

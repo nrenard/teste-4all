@@ -14,7 +14,7 @@ class Header extends PureComponent {
 
   componentDidMount() {
     if (isAuthenticated()) {
-      this.props.getUser()
+      this.props.getUser();
     }
   }
 
