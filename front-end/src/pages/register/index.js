@@ -86,7 +86,7 @@ class Login extends Component {
           <Form onSubmit={this.submitForm}>
             <Input 
               handleChange={this.handleChangeName}
-              label='Seu nome:'
+              label='Nome:'
               value={name}
               type='name'
               name='name'
@@ -94,7 +94,7 @@ class Login extends Component {
 
             <Input 
               handleChange={this.handleChangeEmail}
-              label='Seu email:'
+              label='Email:'
               value={email}
               type='email'
               name='email'
@@ -102,7 +102,7 @@ class Login extends Component {
 
             <Input 
               handleChange={this.handleChangePassword}
-              label='Sua senha:'
+              label='Senha:'
               value={password}
               type='password'
               name='password'

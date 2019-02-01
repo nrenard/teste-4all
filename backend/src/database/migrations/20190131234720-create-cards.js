@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-      return queryInterface.createTable('carts', { 
+      return queryInterface.createTable('cards', { 
         id: {
           allowNull: false,
           autoIncrement: true,
@@ -19,7 +19,7 @@ module.exports = {
         },
         number: {
           allowNull: false,
-          type: Sequelize.INTEGER
+          type: Sequelize.STRING
         },
         expiration: {
           allowNull: false,
@@ -44,6 +44,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('carts');
+    return queryInterface.dropTable('cards');
   }
 };

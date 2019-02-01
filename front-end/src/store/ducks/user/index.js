@@ -27,7 +27,7 @@ export default function playlists(state = INITIAL_STATE, { type, payload }) {
 		case Types.GET_USER:
 			return { ...state, loading: true }
 		case Types.GET_USER_SUCCESS:
-			return { ...state, ...payload.data, loading: false}
+			return { ...state, ...payload.data, loading: false }
 		default:
 			return state
 	}

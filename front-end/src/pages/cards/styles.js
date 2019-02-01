@@ -23,22 +23,6 @@ export const ListCard = styled.div`
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
-    
-    &.number {
-      width: 160px;
-    }
-
-    &.holder {
-      width: 150px;
-    }
-
-    &.maturity {
-      width: 90px;
-    }
-
-    &.ccv {
-      width: 30px;
-    }
 
     &.actions {
       width: 100px;
@@ -62,7 +46,7 @@ export const ListCard = styled.div`
 
       transition: .2s background ease-out;
 
-      div {
+      > div {
         &:first-child {
           flex: 1;
           display: flex;
@@ -79,7 +63,6 @@ export const ListCard = styled.div`
     }
   }
 `;
-
 
 export const HeaderList = styled.div`
   display: flex;
@@ -98,8 +81,20 @@ export const HeaderList = styled.div`
       font-size: 13px;
     }
 
-    &:first-child {
+    > &:first-child {
       flex: 1;
     }
   }
+`;
+
+export const ColumnList = styled.div`
+  max-width: 100%;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: ${props => props.width ? `${props.width}px` : "100%" };
+  
+  &:not(:last-child) {
+    margin-right: 20px;
+  } 
 `;
