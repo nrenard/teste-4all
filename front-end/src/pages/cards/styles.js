@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Content } from '../../styles/components';
+import { Content, ButtonsWrapper } from '../../styles/components';
 
 export const Container = styled.div`
   margin-top: 50px;
@@ -9,31 +9,31 @@ export const Container = styled.div`
     align-items: flex-start;
     flex-direction: column;
   }
+
+  ${ButtonsWrapper} {
+    margin-top: 0;
+  }
 `;
 
 export const ListCard = styled.div`
-  border: 0.5px solid;
-  padding: 15px;
+  padding: 15px 0;
   margin-top: 20px;
   border-radius: 1px;
   width: 100%;
+  border: 1px solid rgba(255, 255,255, .1);
 
   p {
     max-width: 100%;
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
-    &.actions {
-      width: 100px;
-    }
 
     &:not(:last-child) {
       margin-right: 20px;
     }
   }
 
-  ul {    
+  ul {
     list-style: none;
     width: 100%;
     height: 100%;
@@ -41,7 +41,7 @@ export const ListCard = styled.div`
     li {
       display: flex;
       align-items: center;
-      padding: 10px;
+      padding: 10px 15px;
       flex-wrap: wrap;
 
       transition: .2s background ease-out;
@@ -53,48 +53,32 @@ export const ListCard = styled.div`
         }
       }
 
+      p {
+        strong {
+          margin-right: 10px;
+        }
+      }
+
       &:hover {
         background: rgba(255,255,255, .1);
       }
-      
+
       &:not(:last-child) {
         border-bottom: 0.5px solid rgba(255,255,255, .1);
       }
     }
   }
-`;
 
-export const HeaderList = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid rgba(255,255,255, .3);
-  margin-bottom: 5px;
-  padding-top: 5px;
-
-  div {
-    display: flex;
-
-    p {
-      text-transform: uppercase;
-      font-size: 13px;
-    }
-
-    > &:first-child {
-      flex: 1;
+  ${ButtonsWrapper} {
+    button {
+      font-size: 11px;
+      padding: 10px 12px;
     }
   }
 `;
 
-export const ColumnList = styled.div`
-  max-width: 100%;
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: ${props => props.width ? `${props.width}px` : "100%" };
-  
-  &:not(:last-child) {
-    margin-right: 20px;
-  } 
+export const HeaderCard = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;

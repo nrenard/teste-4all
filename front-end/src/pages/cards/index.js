@@ -4,10 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as CardsActions } from '../../store/ducks/cards';
 
-import { Container, ListCard, HeaderList, ColumnList } from './styles';
-import { Content, PageTitle } from '../../styles/components';
+import { Container, ListCard, HeaderCard } from './styles';
+import { Content, PageTitle, ButtonsWrapper } from '../../styles/components';
+
+import ModalCart from '../../components/ModalCart';
 
 class Cards extends Component {
+
+  state = { modalCart: null };
 
   componentDidMount() {
     const { cards } = this.props;
@@ -16,57 +20,59 @@ class Cards extends Component {
     }
   }
 
+  closeModal = () => {
+    this.setState({ modalCart: null });
+  }
+
+  openModal = (value = true) => {
+    this.setState({ modalCart: value });
+  }
+
   render() {
 
     const { cards } = this.props;
+    const { modalCart } = this.state;
 
     console.log('cards: ', cards);
 
     return (
       <Container>
         <Content>
-          <PageTitle>Cartões</PageTitle>
-    
+          <HeaderCard>
+            <PageTitle>Cartões</PageTitle>
+
+            <ButtonsWrapper>
+              <button onClick={this.openModal}>Adicionar Cartão</button>
+            </ButtonsWrapper>
+          </HeaderCard>
+
           <ListCard loading={cards.loading}>
-            <HeaderList>
-              <div>
-                <ColumnList width={160}>
-                  <p>Número</p>
-                </ColumnList>
-                <ColumnList width={150}>
-                  <p>Titular</p>
-                </ColumnList>
-                <ColumnList width={90}>
-                  <p>vencimento</p>
-                </ColumnList>
-                <ColumnList width={30}>
-                  <p>CCV</p>
-                </ColumnList>
-              </div>
-              <div>
-                <p className="actions">ações</p>
-              </div>
-            </HeaderList>
             {cards.list && (
               <ul>
                 {cards.list.map(item => (
                   <li key={item.id}>
                     <div>
-                      <ColumnList width={160}>
-                        <p>{item.number}</p>
-                      </ColumnList>
-                      <ColumnList width={150}>
-                        <p>{item.holder}</p>
-                      </ColumnList>
-                      <ColumnList width={90}>
-                        <p>{item.expiration}</p>
-                      </ColumnList>
-                      <ColumnList width={30}>
-                        <p>{item.cvv}</p>
-                      </ColumnList>
+                        <p>
+                          <strong>Número:</strong>
+                          {item.number}
+                        </p>
+                        <p>
+                          <strong>Titular:</strong>
+                          {item.holder}
+                        </p>
+                        <p>
+                          <strong>vencimento:</strong>
+                          {item.holder}
+                        </p>
+                        <p>
+                          <strong>cvv:</strong>
+                          {item.cvv}
+                        </p>
                     </div>
                     <div>
-                      <p className="actions">excluir</p>
+                      <ButtonsWrapper>
+                        <button>excluir</button>
+                      </ButtonsWrapper>
                     </div>
                   </li>
                 ))}
@@ -74,6 +80,11 @@ class Cards extends Component {
             )}
           </ListCard>
         </Content>
+
+        <ModalCart
+          isOpen={modalCart}
+          onClose={this.closeModal}
+        />
       </Container>
     );
   }

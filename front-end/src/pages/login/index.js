@@ -8,8 +8,8 @@ import { setToken } from '../../services/auth';
 
 import api from '../../services/api';
 
-import { Container, Content, Form, ButtonsWrapper } from './styles';
-import { ErrorMessage, SuccessMessage, } from '../../styles/components';
+import { Container, Content, Form } from './styles';
+import { ErrorMessage, SuccessMessage, ButtonsWrapper } from '../../styles/components';
 
 import { Link } from 'react-router-dom';
 
@@ -44,7 +44,7 @@ class Login extends Component {
     }
 
     try {
-      const { data } = await api.post('/login', {
+      const data = await api.post('/login', {
         email: this.state.email,
         password: this.state.password,
       });
@@ -69,8 +69,8 @@ class Login extends Component {
 
   render() {
 
-    const { 
-      email, 
+    const {
+      email,
       password,
       error,
       successLogin,
@@ -80,9 +80,9 @@ class Login extends Component {
       <Container>
         <Content>
           <h1>Ekki</h1>
-    
+
           <Form onSubmit={this.submitForm}>
-            <Input 
+            <Input
               handleChange={this.handleChangeEmail}
               label='Email:'
               value={email}
@@ -90,7 +90,7 @@ class Login extends Component {
               name='email'
             />
 
-            <Input 
+            <Input
               handleChange={this.handleChangePassword}
               label='Senha:'
               value={password}
@@ -101,11 +101,11 @@ class Login extends Component {
             {error && (
               <ErrorMessage>* {error}</ErrorMessage>
             )}
-            
+
             {successLogin && (
               <SuccessMessage>Usuário cadastrado com sucesso!</SuccessMessage>
             )}
-            
+
             <ButtonsWrapper>
               <button>Entrar</button>
               <Link to="/register">registrar-se</Link>

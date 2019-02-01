@@ -1,5 +1,5 @@
 export const isAuthenticated = () => {
-  return localStorage.getItem('@ekki/token')
+  return localStorage.getItem('@ekki/token');
 };
 
 export const setToken = async token => {
