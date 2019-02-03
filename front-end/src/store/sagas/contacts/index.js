@@ -7,7 +7,6 @@ import {
 } from './api';
 
 import { Creators as ContactsActions } from '../../ducks/contacts';
-import { Creators as UsersActions } from '../../ducks/users';
 import { Types as TypesActions } from '../../ducks/contacts';
 
 export function* getContacts() {
@@ -26,8 +25,7 @@ export function* addContacts({ payload }) {
     if (data.error) {
       console.log('error: ', data.error);
     } else {
-      yield put(ContactsActions.addContactSuccess(payload.user))
-      yield put(UsersActions.deleteUser(payload.user.id))
+      yield put(ContactsActions.getContacts())
     }
 	} catch (err) {
 		console.log('err: ', err);

@@ -11,6 +11,7 @@ export const Container = styled.header`
   @media (max-width: 769px) {
     ${Content} {
       flex-direction: column;
+      padding: 20px 0;
     }
   }
 `;
@@ -21,6 +22,12 @@ export const Nav = styled.nav`
   flex: 1;
   margin-left: 50px;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-left: 0;
+    padding: 20px 0;
+  }
+
   a {
     color: #ccc;
     text-decoration: none;
@@ -30,6 +37,14 @@ export const Nav = styled.nav`
     font-size: 13px;
 
     transition: color .2s ease-out;
+
+    @media (max-width: 768px) {
+      margin-left: 0;
+
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+    }
 
     &:hover, &.active {
       color: #fff;
@@ -51,21 +66,32 @@ export const User = styled.div`
     margin-bottom: 2px;
   }
 
-  div {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba(0,0,0, .8);
-    text-transform: uppercase;
-    opacity: 0;
-    transition: .2s all ease-out;
-    cursor: pointer;
-    color: #fff;
+  a {
+    text-decoration: none;
+
+    div {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0, .8);
+      text-transform: uppercase;
+      opacity: 0;
+      transition: .2s all ease-out;
+      cursor: pointer;
+      color: #fff;
+
+      @media (max-width: 768px) {
+        position: relative;
+        margin-top: 10px;
+        opacity: 1;
+        background: transparent;
+      }
+    }
   }
 
   &:hover {

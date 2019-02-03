@@ -1,4 +1,5 @@
 const { Transaction, User } = require('../models')
+const { Op } = require('sequelize')
 
 class TransationsController {
   async index (req, res) {
@@ -8,6 +9,9 @@ class TransationsController {
           model: User, as: 'receiver',
           attributes: ['email']
         }],
+        order: [
+          ['created_at', 'DESC'],
+        ],
         attributes: ['id', 'receiver_id', 'value', 'created_at' ],
         where: {
           user_id: req.userId,
@@ -23,16 +27,36 @@ class TransationsController {
   async store (req, res) {
     const { receiver_id, value } = req.body
 
+    const twoMinutesMiliseconds = 1000 * 120
+
+    const timeNow = new Date();
+    const timePast = new Date(timeNow - twoMinutesMiliseconds)
+
     try {
-      const receiver = await User.findOne({ where: { id: receiver_id } })
-      const { amount  } = await User.findOne({
-        attributes: ['amount'],
-        where: { id: req.userId }
+      const transactionExists = await Transaction.destroy({
+        where: {
+          user_id: req.userId,
+          value,
+          receiver_id,
+          created_at: {
+            [Op.between]: [
+              timePast,
+              timeNow
+            ]
+          },
+        }
       })
+
+      const receiver = await User.findOne({ where: { id: receiver_id } })
 
       if (!receiver) {
         return res.json({ error: "Receptor inexistente." })
       }
+
+      const { amount } = await User.findOne({
+        attributes: ['amount'],
+        where: { id: req.userId }
+      })
 
       const transaction = await Transaction.create({
         value,
@@ -45,10 +69,12 @@ class TransationsController {
         { where: { id: req.userId } },
       )
 
-      await User.update(
-        { amount: receiver.amount + value },
-        { where: { id: receiver_id } },
-      )
+      if (transactionExists === 0) {
+        await User.update(
+          { amount: receiver.amount + value },
+          { where: { id: receiver_id } },
+        )
+      }
 
       return res.json(transaction)
     } catch (err) {

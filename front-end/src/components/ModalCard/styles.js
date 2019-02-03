@@ -15,8 +15,8 @@ export const Container = styled.div`
   align-items: center;
   opacity: ${({ isOpen }) => isOpen ? "1" : "0" };
   visibility: ${({ isOpen }) => isOpen ? "visible" : "hidden" };
-
   transition: .3s opacity ease-out, .4s visibility ease-out, .2s top ease-out;
+  padding: 10px;
 
   ${PageTitle} {
     text-align: center;

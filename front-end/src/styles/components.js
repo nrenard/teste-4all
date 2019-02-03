@@ -23,12 +23,20 @@ export const Content = styled.div`
   margin: 0 auto;
   display: flex;
   align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const PageTitle = styled.h3`
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 500;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -130,13 +138,25 @@ export const List = styled.div`
       flex-wrap: wrap;
       position: relative;
       cursor: pointer;
-
       transition: .2s background ease-out;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+
+        ${ButtonsWrapper} {
+          margin-top: 10px;
+        }
+      }
 
       > div {
         &:first-child {
           flex: 1;
           display: flex;
+          width: 100%;
+        }
+
+        @media (max-width: 768px) {
+          flex-direction: column;
         }
       }
 

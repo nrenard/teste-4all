@@ -5,21 +5,30 @@ export const Container = styled.div`
 `;
 
 export const Amount = styled.div`
-    border: 1px solid;
-    padding: 15px;
-    border-radius: 1px;
-    width: 100%;
-    max-width: 320px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    font-size: 20px;
-    flex-wrap: wrap;
+  border: 1px solid;
+  padding: 15px;
+  border-radius: 1px;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 20px;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 
   strong {
     margin-left: 10px;
     display: block;
+
+    @media (max-width: 769px) {
+      margin-left: 0;
+      margin-top: 10px;
+    }
   }
 `;
 
@@ -46,8 +55,8 @@ export const ButtonsWrapper = styled.div`
       background: rgba(255,255, 255,.2);
       color: #fff;
     }
-    
-    &:not(:first-child) {    
+
+    &:not(:first-child) {
       margin-top: 15px;
     }
   }

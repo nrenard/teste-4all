@@ -48,7 +48,7 @@ class Contacts extends Component {
 
             <ButtonsWrapper>
               <button onClick={activeListUsers ? this.closeListUsers : this.openListUsers}>
-                {activeListUsers ? "Esconder lisa de usuários" : "Mostrar lisa de usuários"}
+                {activeListUsers ? "Esconder lista de usuários" : "Mostrar lista de usuários"}
               </button>
             </ButtonsWrapper>
           </HeaderPage>

@@ -35,7 +35,10 @@ class AddCart extends Component {
   }
 
   handleChangeCvv = event => {
-    this.setState({ cvv: event.target.value });
+    const value = event.target.value
+    if (value.length < 4) {
+      this.setState({ cvv: value });
+    }
   }
 
   handleChangeHolder = event => {
@@ -87,6 +90,7 @@ class AddCart extends Component {
               label="Número"
               name="number"
               handleChange={this.handleChangeNumber}
+              maxLength={19}
             />
 
             <Input
@@ -94,6 +98,8 @@ class AddCart extends Component {
               label="Cvv"
               name="cvv"
               handleChange={this.handleChangeCvv}
+              type="number"
+              maxLength={3}
             />
 
             <Input
@@ -108,6 +114,7 @@ class AddCart extends Component {
               label="Vencimento"
               name="expiration"
               handleChange={this.handleChangeExpiration}
+              maxLength={5}
             />
           </Form>
 

@@ -24,28 +24,15 @@ export const Label = styled.label`
   color: #000;
   font-size: 13px;
   font-weight: 600;
-  left: 10px;
-  top: 8px;
+  left: 0;
+  top: -18px;
   transition: .2s top ease-out, .2s left ease-out;
 `;
 
-export const InputStyle = styled.input`
+export const SelectStyle = styled.select`
   border-radius: 4px;
   width: 100%;
   border: 1px solid #ccc;
   padding: 3px 10px;
   height: 30px;
-
-
-  + ${Label} {
-    top: ${props => !!props.value || props.active ? '-18px' : '8px'};
-    left: ${props => !!props.value || props.active ? '0px' : '10px'};
-  }
-
-  &:focus {
-    + ${Label} {
-      top: -18px;
-      left: 0;
-    }
-  }
 `;

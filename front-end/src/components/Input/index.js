@@ -9,6 +9,8 @@ const Input = ({
   type = 'text',
   autoFocus,
   children,
+  active = false,
+  maxLength = "",
   ...props
 }) => (
   <Container>
@@ -19,6 +21,8 @@ const Input = ({
       value={value}
       onChange={props.handleChange}
       autoFocus={autoFocus}
+      active={active}
+      maxLength={maxLength}
     />
 
     {label && (

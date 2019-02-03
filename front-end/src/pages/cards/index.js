@@ -14,11 +14,11 @@ import {
   Tooltip
 } from '../../styles/components';
 
-import ModalCart from '../../components/ModalCart';
+import ModalCard from '../../components/ModalCard';
 
 class Cards extends Component {
 
-  state = { modalCart: null };
+  state = { modalCard: null };
 
   componentDidMount() {
     const { cards } = this.props;
@@ -29,7 +29,7 @@ class Cards extends Component {
   }
 
   closeModal = () => {
-    this.setState({ modalCart: null });
+    this.setState({ modalCard: null });
   }
 
   openModal = (value = true, event) => {
@@ -37,7 +37,7 @@ class Cards extends Component {
       event.preventDefault();
     }
 
-    this.setState({ modalCart: value });
+    this.setState({ modalCard: value });
   }
 
   deleteCard = (id, event) => {
@@ -52,7 +52,7 @@ class Cards extends Component {
   render() {
 
     const { cards } = this.props;
-    const { modalCart } = this.state;
+    const { modalCard } = this.state;
 
     return (
       <Container>
@@ -109,10 +109,10 @@ class Cards extends Component {
         </Content>
 
         {cards.list &&
-          <ModalCart
-            isOpen={modalCart}
+          <ModalCard
+            isOpen={modalCard}
             onClose={this.closeModal}
-            card={cards.list.find(card => card.id === modalCart) || null}
+            card={cards.list.find(card => card.id === modalCard) || null}
           />
         }
       </Container>

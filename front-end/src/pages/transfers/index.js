@@ -55,7 +55,6 @@ class Transfers extends Component {
               <ul>
                 {transfers.list.map(item => {
                   const date = new Date(item.created_at).toLocaleDateString();
-
                   return (
                     <li key={item.id}>
                       <div>
