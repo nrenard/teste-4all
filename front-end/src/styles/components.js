@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ErrorMessage = styled.span`
   display: block;
@@ -62,5 +62,109 @@ export const ButtonsWrapper = styled.div`
 
   button {
     padding: 12px 15px;
+  }
+`;
+
+export const HeaderPage = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  ${ButtonsWrapper} {
+    padding: 0;
+  }
+`;
+
+export const Tooltip = styled.div`
+  position: absolute;
+  top: -40px;
+  background: #25202c;
+  padding: 5px;
+  border-radius: 4px;
+  opacity: 0;
+  visibility: hidden;
+`;
+
+export const List = styled.div`
+  margin-top: 20px;
+  border-radius: 4px;
+  width: 100%;
+  border: 1px solid rgba(255, 255,255, .1);
+  position: relative;
+
+  ${({ loading }) => loading && css`
+    &:after {
+      left: 0;
+      top: 0;
+      border-radius: 4px;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      background-color: rgba(255,255,255,.4);
+      content: "";
+    }
+	`}
+
+  p {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+
+  ul {
+    list-style: none;
+    width: 100%;
+    height: 100%;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 15px;
+      flex-wrap: wrap;
+      position: relative;
+      cursor: pointer;
+
+      transition: .2s background ease-out;
+
+      > div {
+        &:first-child {
+          flex: 1;
+          display: flex;
+        }
+      }
+
+      p {
+        strong {
+          margin-left: 10px;
+        }
+      }
+
+      &:hover {
+        background: rgba(255,255,255, .1);
+
+        ${Tooltip} {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 0.5px solid rgba(255,255,255, .1);
+      }
+    }
+  }
+
+  ${ButtonsWrapper} {
+    button {
+      font-size: 11px;
+      padding: 10px 12px;
+    }
   }
 `;

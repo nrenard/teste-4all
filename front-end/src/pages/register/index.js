@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 
-import { 
-  Container, 
-  Content, 
-  Form, 
+import {
+  Container,
+  Content,
+  Form,
   ButtonsWrapper,
 } from './styles';
 import { ErrorMessage, SuccessMessage, } from '../../styles/components';
@@ -15,9 +15,9 @@ import Input from '../../components/Input';
 
 class Login extends Component {
 
-  state = { 
-    email: '', 
-    name: '', 
+  state = {
+    email: '',
+    name: '',
     password: '',
     error: null,
     successRegister: false,
@@ -45,20 +45,20 @@ class Login extends Component {
     if (event) {
       event.preventDefault();
     }
-    
+
     try {
-      const { data } = await api.post('/register', { 
+      const data = await api.post('/register', {
         name: this.state.name,
         email: this.state.email,
         password: this.state.password,
       });
 
       if (!data.error) {
-        this.setState({ 
+        this.setState({
           successRegister: true,
           error: null,
         }, () => {
-          this.redirectToLogin= setTimeout(() => this.props.history.push('/login'), 3000);
+          this.redirectToLogin= setTimeout(() => this.props.history.push('/login'), 1000);
         })
       } else {
         this.setState({ error: data.error });
@@ -70,10 +70,10 @@ class Login extends Component {
 
   render() {
 
-    const { 
-      name, 
-      email, 
-      password, 
+    const {
+      name,
+      email,
+      password,
       error,
       successRegister
     } = this.state;
@@ -82,17 +82,18 @@ class Login extends Component {
       <Container>
         <Content>
           <h1>Ekki</h1>
-    
+
           <Form onSubmit={this.submitForm}>
-            <Input 
+            <Input
               handleChange={this.handleChangeName}
               label='Nome:'
               value={name}
               type='name'
               name='name'
+              autoFocus={true}
             />
 
-            <Input 
+            <Input
               handleChange={this.handleChangeEmail}
               label='Email:'
               value={email}
@@ -100,7 +101,7 @@ class Login extends Component {
               name='email'
             />
 
-            <Input 
+            <Input
               handleChange={this.handleChangePassword}
               label='Senha:'
               value={password}
@@ -111,7 +112,7 @@ class Login extends Component {
             {error && (
               <ErrorMessage>* {error}</ErrorMessage>
             )}
-            
+
             {successRegister && (
               <SuccessMessage>Usuário cadastrado com sucesso!</SuccessMessage>
             )}

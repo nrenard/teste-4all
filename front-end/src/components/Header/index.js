@@ -20,15 +20,17 @@ class Header extends PureComponent {
 
   render() {
     const { user } = this.props;
-    
+
     return(
       <Container>
         <Content>
           <h1>Ekki​</h1>
-    
+
           <Nav>
             <Link to="/">home</Link>
             <Link to="/cards">cartões</Link>
+            <Link to="/contacts">Contatos</Link>
+            <Link to="/transfers">Transferências</Link>
           </Nav>
 
           {!user.loading &&(

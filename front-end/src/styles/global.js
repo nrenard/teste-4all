@@ -20,7 +20,7 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased !important;
     text-rendering: optimizeLegibility !important;
     font-family: 'Montserrat', sans-serif;
-    background-color: #181818;
+    background-color: #25202c;
     color: #fff;
   }
 `;

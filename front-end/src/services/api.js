@@ -2,9 +2,11 @@ import axios from 'axios';
 
 import { isAuthenticated, deleteToken } from '../services/auth';
 
+const Authorization = `Bearer ${isAuthenticated()}`;
+
 const api = axios.create({
 	baseURL: "http://localhost:8080/",
-	headers: { Authorization: `Bearer ${isAuthenticated()}` }
+	headers: { Authorization },
 });
 
 api.interceptors.response.use(response => {

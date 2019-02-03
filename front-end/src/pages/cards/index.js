@@ -4,8 +4,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as CardsActions } from '../../store/ducks/cards';
 
-import { Container, ListCard, HeaderCard } from './styles';
-import { Content, PageTitle, ButtonsWrapper } from '../../styles/components';
+import { Container } from './styles';
+import {
+  Content,
+  PageTitle,
+  ButtonsWrapper,
+  HeaderPage,
+  List,
+  Tooltip
+} from '../../styles/components';
 
 import ModalCart from '../../components/ModalCart';
 
@@ -15,6 +22,7 @@ class Cards extends Component {
 
   componentDidMount() {
     const { cards } = this.props;
+
     if (!cards.list) {
       this.props.getCards();
     }
@@ -24,8 +32,21 @@ class Cards extends Component {
     this.setState({ modalCart: null });
   }
 
-  openModal = (value = true) => {
+  openModal = (value = true, event) => {
+    if (event) {
+      event.preventDefault();
+    }
+
     this.setState({ modalCart: value });
+  }
+
+  deleteCard = (id, event) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    this.props.deleteCard(id);
   }
 
   render() {
@@ -33,65 +54,75 @@ class Cards extends Component {
     const { cards } = this.props;
     const { modalCart } = this.state;
 
-    console.log('cards: ', cards);
-
     return (
       <Container>
         <Content>
-          <HeaderCard>
+          <HeaderPage>
             <PageTitle>Cartões</PageTitle>
 
             <ButtonsWrapper>
-              <button onClick={this.openModal}>Adicionar Cartão</button>
+              <button onClick={this.openModal.bind(null, true)}>Adicionar Cartão</button>
             </ButtonsWrapper>
-          </HeaderCard>
+          </HeaderPage>
 
-          <ListCard loading={cards.loading}>
+          <List loading={cards.loading}>
             {cards.list && (
               <ul>
                 {cards.list.map(item => (
-                  <li key={item.id}>
+                  <li key={item.id} onClick={this.openModal.bind(null, item.id)}>
                     <div>
                         <p>
-                          <strong>Número:</strong>
-                          {item.number}
+                          Número:
+                          <strong>{item.number}</strong>
                         </p>
                         <p>
-                          <strong>Titular:</strong>
-                          {item.holder}
+                          Titular:
+                          <strong>{item.holder}</strong>
                         </p>
                         <p>
-                          <strong>vencimento:</strong>
-                          {item.holder}
+                          Vencimento:
+                          <strong>{item.expiration}</strong>
                         </p>
                         <p>
-                          <strong>cvv:</strong>
-                          {item.cvv}
+                          Cvv:
+                          <strong>{item.cvv}</strong>
                         </p>
                     </div>
                     <div>
                       <ButtonsWrapper>
-                        <button>excluir</button>
+                        <button onClick={this.deleteCard.bind(null, item.id)}>excluir</button>
                       </ButtonsWrapper>
                     </div>
+
+                    <Tooltip>
+                      Clique para editar.
+                    </Tooltip>
                   </li>
                 ))}
+
+                {cards.list.length === 0 && (
+                  <li onClick={this.openModal.bind(null, true)}>Nenhum cartão encontrado.</li>
+                )}
               </ul>
             )}
-          </ListCard>
+          </List>
         </Content>
 
-        <ModalCart
-          isOpen={modalCart}
-          onClose={this.closeModal}
-        />
+        {cards.list &&
+          <ModalCart
+            isOpen={modalCart}
+            onClose={this.closeModal}
+            card={cards.list.find(card => card.id === modalCart) || null}
+          />
+        }
       </Container>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getCards: CardsActions.getCards
+  getCards: CardsActions.getCards,
+  deleteCard: CardsActions.deleteCard
 }, dispatch);
 
 const mapStateToProps = ({ cards }) => ({ cards });

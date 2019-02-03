@@ -57,7 +57,7 @@ class Login extends Component {
           successLogin: true,
           error: null,
         }, () => {
-          this.redirectToDashboard = setTimeout(() => this.props.history.push('/'), 2000);
+          this.redirectToDashboard = setTimeout(() => window.location.pathname = "/", 1000);
         })
       } else {
         this.setState({ error: data.error });
@@ -88,6 +88,7 @@ class Login extends Component {
               value={email}
               type='email'
               name='email'
+              autoFocus={true}
             />
 
             <Input
@@ -103,7 +104,7 @@ class Login extends Component {
             )}
 
             {successLogin && (
-              <SuccessMessage>Usuário cadastrado com sucesso!</SuccessMessage>
+              <SuccessMessage>Login efetuado com sucesso!</SuccessMessage>
             )}
 
             <ButtonsWrapper>

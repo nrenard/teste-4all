@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background: #303030;
+  background: #25202c;
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,8 +52,8 @@ export const ButtonsWrapper = styled.div`
       background: rgba(255,255, 255,.2);
       color: #fff;
     }
-    
-    &:not(:first-child) {    
+
+    &:not(:first-child) {
       margin-top: 15px;
     }
   }

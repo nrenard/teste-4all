@@ -5,6 +5,14 @@ export const Container = styled.div`
   margin-top: 30px;
   display: flex;
   align-items: center;
+
+  p {
+    position: absolute;
+    color: #000;
+    padding-left: 10px;
+    font-size: 13px;
+    background: #fff;
+  }
 `;
 
 export const Label = styled.label`
@@ -23,8 +31,8 @@ export const InputStyle = styled.input`
   border: 1px solid #ccc;
   padding: 3px 10px;
   height: 30px;
-  
-  
+
+
   + ${Label} {
     top: ${props => !!props.value ? '-18px' : '8px'};
     left: ${props => !!props.value ? '0px' : '10px'};

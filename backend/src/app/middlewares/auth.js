@@ -15,8 +15,8 @@ module.exports = async (req, res, next) => {
   }
 
   try {
-    const user = await jwt.verify(token, secret)
-    req.user = user
+    const { id } = await jwt.verify(token, secret)
+    req.userId = id
 
     return next()
   } catch (err) {

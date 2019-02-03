@@ -1,11 +1,11 @@
 export const isAuthenticated = () => {
-  return localStorage.getItem('@ekki/token');
+  return JSON.parse(localStorage.getItem('token'));
 };
 
-export const setToken = async token => {
-  return await localStorage.setItem('@ekki/token', token);
+export const setToken = token => {
+  localStorage.setItem('token', JSON.stringify(token));
 };
 
 export const deleteToken = () => {
-  return localStorage.removeItem('@ekki/token');
+  localStorage.removeItem('token');
 };

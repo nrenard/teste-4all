@@ -24,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.checkPassword = async function (password) {
     return await bcrypt.compare(password, this.password_hash)
   }
-  
-  User.prototype.generateToken = function ({ id, name, email, amount }) {
-    return jwt.sign({ id, name, email, amount }, secret, { expiresIn })
+
+  User.prototype.generateToken = function ({ id }) {
+    return jwt.sign({ id }, secret, { expiresIn })
   }
 
   return User

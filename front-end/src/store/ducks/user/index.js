@@ -6,8 +6,8 @@ export const Types = {
 };
 
 const INITIAL_STATE = {
-  name: "",
-  email: "",
+  name: null,
+  email: null,
   amount: 0,
   loading: false,
 };
@@ -20,7 +20,7 @@ export const Creators = {
 	getUserSuccess: data => ({ type: Types.GET_USER_SUCCESS, payload: { data } }),
 }
 
-export default function playlists(state = INITIAL_STATE, { type, payload }) {
+export default function user(state = INITIAL_STATE, { type, payload }) {
 	switch(type) {
 		case Types.SET_USER:
 			return { ...state, ...payload.data }

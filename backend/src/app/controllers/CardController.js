@@ -3,10 +3,10 @@ const { Card } = require('../models');
 class CardController {
   async index (req, res) {
     try {
-      const cards = await Card.findAll({ where: { user_id: req.user.id } });
+      const cards = await Card.findAll({ where: { user_id: req.userId } });
       return res.json(cards);
     } catch (err) {
-      return res.json(err)
+      return res.json({ error: "Erro ao tentar buscar os cartões." })
     }
   }
 
@@ -14,24 +14,24 @@ class CardController {
     const { id } = req.params
 
     try {
-      const card = await Card.findOne({ where: { id, user_id: req.user.id } })
+      const card = await Card.findOne({ where: { id, user_id: req.userId } })
 
-      if (!card) {      
+      if (!card) {
         return res.json({ error: 'Cartão não encontrado.' })
       }
 
       return res.json(cart)
     } catch (err) {
-      return res.json(err)
+      return res.json({ error: "Erro ao tentar mostrar o cartão." })
     }
   }
 
   async store (req, res) {
-    const { 
-      number, 
-      cvv, 
-      holder = "", 
-      expiration 
+    const {
+      number,
+      cvv,
+      holder = "",
+      expiration
     } = req.body;
 
     if (!number) {
@@ -53,12 +53,12 @@ class CardController {
     try {
       const card = await Card.create({
         ...req.body,
-        user_id: req.user.id
+        user_id: req.userId
       })
 
       return res.json(card)
     } catch (err) {
-      return res.json(err)
+      return res.json({ error: "Erro ao tentar adicionar o cartão." })
     }
   }
 
@@ -66,16 +66,16 @@ class CardController {
     const { id } = req.params
 
     try {
-      const cards = await Card.destroy({ 
-        where: { 
-          id, 
-          user_id: req.user.id 
-        } 
+      const cards = await Card.destroy({
+        where: {
+          id,
+          user_id: req.userId
+        }
       })
 
       return res.json({ cards_deteled: cards })
     } catch (err) {
-      return res.json(err)
+      return res.json({ error: "Erro ao tentar deletar o cartão." })
     }
   }
 
@@ -85,12 +85,12 @@ class CardController {
     try {
       const card = await Card.update(
         req.body,
-        { where: { id, user_id: req.user.id } }
+        { where: { id, user_id: req.userId } }
       )
-      
+
       return res.json(card)
     } catch (err) {
-      return res.json(err)
+      return res.json({ error: "Erro ao tentar atualizar o cartão." })
     }
   }
 }

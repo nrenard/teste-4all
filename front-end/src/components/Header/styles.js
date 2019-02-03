@@ -1,11 +1,18 @@
 import styled from 'styled-components';
+import { Content } from '../../styles/components';
 
 export const Container = styled.header`
   background-color: rgba(255,255,255, .1);
   border-bottom: 1px solid rgba(255,255,255, .2);
-  height: 100px;
+  min-height: 100px;
   display: flex;
   align-items: center;
+
+  @media (max-width: 769px) {
+    ${Content} {
+      flex-direction: column;
+    }
+  }
 `;
 
 export const Nav = styled.nav`

@@ -1,9 +1,31 @@
 const { User } = require('../models')
+const { Op } = require('sequelize')
 
 class UserController {
 
-  index (req, res) {
-    res.json(req.user);
+  async index (req, res) {
+    try {
+      const users = await User.findAll({
+        attributes: ['id', 'name', 'email'],
+        where: { id: { [Op.ne]: req.userId } }
+      })
+      return res.json(users)
+    } catch (err) {
+      return res.json({ error: "Ocorreu um erro." })
+    }
+  }
+
+  async show (req, res) {
+    try {
+      const user = await User.findOne({
+        attributes: ['id', 'name', 'email', 'amount' ],
+        where: { id: req.userId }
+      })
+
+      return res.json(user)
+    } catch (err) {
+      return res.json({ error: "Ocorreu um erro." })
+    }
   }
 
   async store (req, res) {
@@ -22,14 +44,17 @@ class UserController {
     if (userFind) {
       return res.json({ error: 'Usuário ja existe' })
     }
-     
+
     if (password.length < 6) {
       return res.json({ error: 'Senha precisa ter no mínimo 6 caracteres' })
     }
 
-    const user = await User.create({ ...req.body, amount: 0 })
-
-    return res.json(user)
+    try {
+      const user = await User.create({ ...req.body, amount: 0 })
+      return res.json(user)
+    } catch (err) {
+      return res.json({ error: "Ocorreu um erro ao tentar criar um usuário." })
+    }
   }
 }
 

@@ -13,7 +13,7 @@ export function* getUser() {
 	}
 }
 
-export default function* rootSaga() {
+export default function* userSaga() {
 	yield all([
 		takeLatest(UserTypes.GET_USER, getUser),
 	]);
