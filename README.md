@@ -16,7 +16,6 @@ as dependências.
 - Na raiz (teste-4all/backend) rodar o comando yarn start ou npm run start.
 
 # Para rodar o frontend.
-
 - Entrar na pasta raiz (teste-4all/front-end) e rodar o comando yarn ou npm install, para instalar
 as dependências.
 - Na raiz (teste-4all/front-end) rodar o comando yarn start ou npm run start.
