@@ -53,7 +53,7 @@ class TransationsController {
         return res.json({ error: "Receptor inexistente." })
       }
 
-      const { amount } = await User.findOne({
+      let { amount } = await User.findOne({
         attributes: ['amount'],
         where: { id: req.userId }
       })
@@ -64,19 +64,21 @@ class TransationsController {
         receiver_id
       })
 
-      await User.update(
-        { amount : amount - value > 0 ? amount - value : 0 },
-        { where: { id: req.userId } },
-      )
-
       if (transactionExists === 0) {
+        amount = amount - value;
+
         await User.update(
           { amount: receiver.amount + value },
           { where: { id: receiver_id } },
         )
+
+        await User.update(
+          { amount : amount > 0 ? amount : 0 },
+          { where: { id: req.userId } },
+        )
       }
 
-      return res.json(transaction)
+      return res.json({ transaction: transaction.id, amount })
     } catch (err) {
       return res.json({ error: "Erro ao tentar fazer uma transferências." })
     }

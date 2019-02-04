@@ -60,7 +60,7 @@ class ListUsers extends Component {
               })}
 
               {users.list.length === 0 && (
-                <li>Nenhum contato encontrado.</li>
+                <li>Nenhum usuário encontrado.</li>
               )}
             </ul>
           )}

@@ -137,7 +137,9 @@ class ModalTransfer extends Component {
   }
 
   setPassword = () => {
-    this.setState({ passwordVerified: true });
+    this.setState({
+      passwordVerified: true
+    }, this.verifyAmount);
   }
 
   render() {

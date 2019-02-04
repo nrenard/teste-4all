@@ -17,9 +17,12 @@ export function* getTransfers() {
 
 export function* addTransfers({ payload }) {
 	try {
-    yield call(requestAddTransfer, payload.fields);
-    yield put(TransfersActions.getTransfers());
-    yield put(UserActions.decrementAmount(payload.fields.value));
+    const data = yield call(requestAddTransfer, payload.fields);
+
+    if (!data.error) {
+      yield put(TransfersActions.getTransfers());
+      yield put(UserActions.setAmount(data.amount));
+    }
 	} catch (err) {
 		console.log('err: ', err);
 	}

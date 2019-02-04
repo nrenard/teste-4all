@@ -4,7 +4,7 @@ export const Types = {
 	GET_USER: 'user/GET_USER',
   GET_USER_SUCCESS: 'user/GET_USER_SUCCESS',
 
-  DECREMENT_AMOUNT: 'user/DECREMENT_AMOUNT'
+  SET_AMOUNT: 'user/SET_AMOUNT'
 };
 
 const INITIAL_STATE = {
@@ -21,7 +21,7 @@ export const Creators = {
 
   getUserSuccess: data => ({ type: Types.GET_USER_SUCCESS, payload: { data } }),
 
-  decrementAmount: value => ({ type: Types.DECREMENT_AMOUNT, payload: { value } }),
+  setAmount: value => ({ type: Types.SET_AMOUNT, payload: { value } }),
 }
 
 export default function user(state = INITIAL_STATE, { type, payload }) {
@@ -35,11 +35,11 @@ export default function user(state = INITIAL_STATE, { type, payload }) {
 		case Types.GET_USER_SUCCESS:
       return { ...state, ...payload.data, loading: false }
 
-      case Types.DECREMENT_AMOUNT:
-        return {
-          ...state,
-            amount: state.amount - payload.value > 0 ? state.amount - payload.value : 0
-          }
+    case Types.SET_AMOUNT:
+      return {
+        ...state,
+          amount: payload.value
+        }
 
 		default:
 			return state
