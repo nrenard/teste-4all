@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,6 +17,16 @@ import {
 } from '../../styles/components';
 
 class Contacts extends Component {
+
+  static propTypes = {
+    contacts: PropTypes.shape({
+      list: PropTypes.array,
+      loading: PropTypes.bool,
+    }).isRequired,
+
+    getContacts: PropTypes.func.isRequired,
+    deleteContact: PropTypes.func.isRequired,
+  };
 
   state = { activeListUsers: false };
 

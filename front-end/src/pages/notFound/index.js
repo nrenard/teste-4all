@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 import { ButtonsWrapper } from '../../styles/components';
 
-const notFound = ({ history }) => (
+const NotFound = ({ history }) => (
   <Container>
     Página não encontrada.
 
@@ -13,4 +14,10 @@ const notFound = ({ history }) => (
   </Container>
 );
 
-export default notFound;
+NotFound.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
+};
+
+export default NotFound;

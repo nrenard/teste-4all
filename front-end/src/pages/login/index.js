@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,6 +17,8 @@ import { Link } from 'react-router-dom';
 import Input from '../../components/Input';
 
 class Login extends Component {
+
+  static propTypes = { setUser: PropTypes.func.isRequired, };
 
   state = {
     email: '',
@@ -42,6 +45,8 @@ class Login extends Component {
     if (event) {
       event.preventDefault();
     }
+
+    clearTimeout(this.redirectToDashboard);
 
     try {
       const data = await api.post('/login', {

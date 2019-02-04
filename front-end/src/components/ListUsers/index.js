@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,6 +10,21 @@ import { Container } from './styles';
 import { List, PageTitle, ButtonsWrapper } from '../../styles/components';
 
 class ListUsers extends Component {
+
+  static propTypes = {
+    contacts: PropTypes.shape({
+      list: PropTypes.array,
+      loading: PropTypes.bool,
+    }).isRequired,
+    users: PropTypes.shape({
+      list: PropTypes.array,
+      loading: PropTypes.bool,
+    }).isRequired,
+
+    getContacts: PropTypes.func.isRequired,
+    getUsers: PropTypes.func.isRequired,
+    addContact: PropTypes.func.isRequired,
+  };
 
   componentDidMount() {
     if (!this.props.users.list) {

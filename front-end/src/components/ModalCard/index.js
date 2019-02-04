@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Container, Content, Form } from './styles';
 import { PageTitle, ButtonsWrapper } from '../../styles/components';
@@ -21,6 +22,14 @@ const initialState = {
 };
 
 class AddCart extends Component {
+
+  static propTypes = {
+    card: PropTypes.object,
+
+    addCard: PropTypes.func.isRequired,
+    editCard: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
+  };
 
   state = initialState;
 

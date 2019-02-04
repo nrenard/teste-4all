@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import api from '../../services/api';
 
@@ -43,6 +44,28 @@ const initialState = {
 };
 
 class ModalTransfer extends Component {
+
+  static propTypes = {
+    cards: PropTypes.shape({
+      list: PropTypes.array,
+      loading: PropTypes.bool,
+    }).isRequired,
+    contacts: PropTypes.shape({
+      list: PropTypes.array,
+      loading: PropTypes.bool,
+    }).isRequired,
+    user: PropTypes.shape({
+      name: PropTypes.string,
+      email: PropTypes.string,
+      amount: PropTypes.number
+    }).isRequired,
+
+
+    getCards:PropTypes.func.isRequired,
+    getContacts:PropTypes.func.isRequired,
+    getUser:PropTypes.func.isRequired,
+    addTransfer:PropTypes.func.isRequired,
+  };
 
   state = initialState;
 

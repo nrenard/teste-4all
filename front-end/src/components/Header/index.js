@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { isAuthenticated } from '../../services/auth';
@@ -11,6 +12,15 @@ import { Container, Nav, User } from './styles';
 import { Content } from '../../styles/components';
 
 class Header extends PureComponent {
+
+  static propTypes = {
+    user: PropTypes.shape({
+      name: PropTypes.string,
+      email: PropTypes.string,
+    }).isRequired,
+
+    getUser: PropTypes.func.isRequired,
+  };
 
   componentDidMount() {
     if (isAuthenticated()) {

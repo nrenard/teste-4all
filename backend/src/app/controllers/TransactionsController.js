@@ -7,14 +7,20 @@ class TransationsController {
       const transactions = await Transaction.findAll({
         include: [{
           model: User, as: 'receiver',
-          attributes: ['email']
+          attributes: ['email', 'id']
+        },{
+          model: User, as: 'user',
+          attributes: ['email', 'id']
         }],
+
         order: [
           ['created_at', 'DESC'],
         ],
-        attributes: ['id', 'receiver_id', 'value', 'created_at' ],
+
+        attributes: ['id', 'value', 'created_at' ],
+
         where: {
-          user_id: req.userId,
+          [Op.or]: [{ user_id: req.userId }, { receiver_id: req.userId }]
         }
       })
 
@@ -65,7 +71,7 @@ class TransationsController {
       })
 
       if (transactionExists === 0) {
-        amount = amount - value;
+        amount = amount - value > 0 ? amount - value : 0;
 
         await User.update(
           { amount: receiver.amount + value },
@@ -73,7 +79,7 @@ class TransationsController {
         )
 
         await User.update(
-          { amount : amount > 0 ? amount : 0 },
+          { amount },
           { where: { id: req.userId } },
         )
       }

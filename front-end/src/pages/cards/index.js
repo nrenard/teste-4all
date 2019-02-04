@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,6 +18,16 @@ import {
 import ModalCard from '../../components/ModalCard';
 
 class Cards extends Component {
+
+  static propTypes = {
+    cards: PropTypes.shape({
+      list: PropTypes.array,
+      loading: PropTypes.bool,
+    }).isRequired,
+
+    getCards: PropTypes.func.isRequired,
+    deleteCard: PropTypes.func.isRequired,
+  };
 
   state = { modalCard: null };
 

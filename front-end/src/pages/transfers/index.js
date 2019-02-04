@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import formatMoney from '../../helpers/formatMoney';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as TransfersActions } from '../../store/ducks/transfers';
+import { Creators as UserActions } from '../../store/ducks/user';
+
 import { Container } from './styles';
 import {
   Content,
@@ -17,11 +21,29 @@ import ModalTranfer from '../../components/ModalTransfer';
 
 class Transfers extends Component {
 
+  static propTypes = {
+    transfers: PropTypes.shape({
+      list: PropTypes.array,
+      loading: PropTypes.bool,
+    }).isRequired,
+
+    user: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      email: PropTypes.string,
+    }).isRequired,
+
+    getTransfers: PropTypes.func.isRequired,
+  };
+
   state = { modalAddTransfer: false };
 
   componentDidMount() {
     if (!this.props.transfers.list) {
       this.props.getTransfers();
+    }
+    if (!this.props.user.name || !this.props.user.email) {
+      this.props.getUser();
     }
   }
 
@@ -35,7 +57,7 @@ class Transfers extends Component {
 
   render () {
 
-    const { transfers } = this.props;
+    const { transfers, user } = this.props;
 
     return (
       <Container>
@@ -67,8 +89,12 @@ class Transfers extends Component {
                           <strong>R$ {formatMoney(item.value)}</strong>
                         </p>
                         <p>
-                          Quem recebeu:
-                          <strong>{item.receiver.email}</strong>
+                          Enviado por:
+                          <strong>{item.user.id === user.id ? "Eu" : item.user.email}</strong>
+                        </p>
+                        <p>
+                          Recebido por:
+                          <strong>{item.receiver.id === user.id ? "Eu" : item.receiver.email}</strong>
                         </p>
                     </div>
                     </li>
@@ -90,10 +116,11 @@ class Transfers extends Component {
   }
 }
 
-const mapStateToProps = ({ transfers }) => ({ transfers });
+const mapStateToProps = ({ transfers, user }) => ({ transfers, user });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   getTransfers: TransfersActions.getTransfers,
+  getUser: UserActions.getUser
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Transfers);

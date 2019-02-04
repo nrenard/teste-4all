@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container, Label, InputStyle } from './styles';
 
@@ -32,5 +33,14 @@ const Input = ({
     {children}
   </Container>
 );
+
+Input.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  type: PropTypes.string,
+  autoFocus: PropTypes.bool,
+  active: PropTypes.bool,
+  maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  handleChange: PropTypes.func.isRequired
+};
 
 export default Input;

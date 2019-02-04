@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
@@ -14,6 +15,12 @@ import { ErrorMessage, SuccessMessage, } from '../../styles/components';
 import Input from '../../components/Input';
 
 class Login extends Component {
+
+  static propTypes = {
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired,
+  };
 
   state = {
     email: '',
@@ -45,6 +52,8 @@ class Login extends Component {
     if (event) {
       event.preventDefault();
     }
+
+    clearTimeout(this.redirectToLogin);
 
     try {
       const data = await api.post('/register', {
