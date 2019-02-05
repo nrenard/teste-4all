@@ -60,7 +60,6 @@ class ModalTransfer extends Component {
       amount: PropTypes.number
     }).isRequired,
 
-
     getCards:PropTypes.func.isRequired,
     getContacts:PropTypes.func.isRequired,
     getUser:PropTypes.func.isRequired,

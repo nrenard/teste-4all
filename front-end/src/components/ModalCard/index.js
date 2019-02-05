@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Container, Content, Form } from './styles';
-import { PageTitle, ButtonsWrapper } from '../../styles/components';
+import { PageTitle, ButtonsWrapper, ErrorMessage } from '../../styles/components';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -19,6 +19,7 @@ const initialState = {
   cvv: "",
   holder: "",
   expiration: "",
+  error: null,
 };
 
 class AddCart extends Component {
@@ -58,12 +59,35 @@ class AddCart extends Component {
     this.setState({ expiration: event.target.value });
   }
 
+  verifyFields = () => {
+    const { number, cvv, holder, expiration, } = this.state;
+
+    const numberNotSpaces = number.replace(/\s/g, "");
+    const reGexNumber = /^-?[0-9]+$/;
+    const reGexExpiration = /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/;
+
+    if (!reGexNumber.test(numberNotSpaces)) {
+      this.setState({ error: "Campo número está inválido. Ex: 1234 4321 9874 6547" });
+    } else if (numberNotSpaces.length !== 16) {
+      this.setState({ error: "Número tem deve ter 16 caracteres." });
+    } else if (cvv.toString().length != 3) {
+      this.setState({ error: "Cvv tem deve ter 3 caracteres." });
+    } else if (holder.length < 3) {
+      this.setState({ error: "Titular deve ter no mínimo 3 caracteres." });
+    } else if (!reGexExpiration.test(expiration)) {
+      this.setState({ error: "Campo vencimento está inválido. Ex: 10/20" });
+    } else {
+      this.setState({ error: null }, this.submitForm);
+    }
+  }
+
   submitForm = () => {
     if (this.props.card) {
       this.props.editCard(this.state);
     } else {
       this.props.addCard(this.state);
     }
+
     this.onClose();
   }
 
@@ -82,11 +106,14 @@ class AddCart extends Component {
       cvv,
       holder,
       expiration,
+      error,
     } = this.state;
 
     const { isOpen, card } = this.props;
 
     const isEditing = !!card;
+
+    console.log('error: ', error);
 
     return (
       <Container isOpen={isOpen} onClick={this.onClose}>
@@ -125,12 +152,16 @@ class AddCart extends Component {
               handleChange={this.handleChangeExpiration}
               maxLength={5}
             />
+
+            {error && (
+              <ErrorMessage>{error}</ErrorMessage>
+            )}
           </Form>
 
           <ButtonsWrapper>
             <button onClick={this.onClose}>cancelar</ button>
 
-            <button type="submit" onClick={this.submitForm}>
+            <button type="submit" onClick={this.verifyFields}>
               {isEditing ? "Salvar" : "Adicionar"}
             </button>
           </ButtonsWrapper>

@@ -52,7 +52,10 @@ class CardController {
 
     try {
       const card = await Card.create({
-        ...req.body,
+        number,
+        cvv,
+        holder,
+        expiration,
         user_id: req.userId
       })
 
